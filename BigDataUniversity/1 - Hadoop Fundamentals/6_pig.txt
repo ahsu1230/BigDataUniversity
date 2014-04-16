@@ -1,0 +1,118 @@
+:::::::::::::::::: Pig ::::::::::::::::::
+ - developed by Yahoo Research around 2006
+ - Language: PigLatin
+	* data flow language - program by connecting things together
+ - Can operate nested data structures
+ - Unlike SQL, does not require a schema (can process unstructured data)
+ - Like SQL, Pig is relationally complete
+ - not Turing complete on own
+	* but can be Turing complete with UDF extensions
+	* to be Turing complete, requires looping construct, infinite memory model, and conditional constructs
+
+------------------------------------------------------------------------------
+
+Pig has language (PigLatin) & an execution environment
+
+Two execution environments (local and distrbuted)
+ - local is good when a complete distributed Hadoop environment is not available
+ - default option is distributed
+
+Local:		pig -x local
+Distributed:	pig -x mapreduce
+
+
+3 ways to run Pig
+ (1) Script:	pig scriptfile.pig
+ (2) Grunt:	pig
+ (3) Embedded:	Call in to Pig from Java
+
+
+The Language:
+ - collection of statements
+	* Operation 	(LOAD 'asdf.txt')
+	* Command	(ls *.txt) <- can be HDFS command
+ - Logical plan / Physical plan
+	* As statements are added, it appends to a logical plan (data flow)
+	* Once statement like 'DUMP'/'STORE' is reached, 
+		logical plan is compiled to physical plan
+		physical plan is executed
+
+Pig Statements:
+ - UDF Statements
+	* REGISTER, DEFINE (user defined functions)
+ - Commands (HDFS)
+	* Hadoop Filesystem (cat, ls)
+	* MapReduce (kill)
+	* Utility (exec, help, quit, run, set)
+ - Diagnostic Operators
+	* DESCRIBE, EXPLAIN, ILLUSTRATE
+
+Relational Operators:
+ - Loading / Storing	 : LOAD, STORE, DUMP
+ - Filtering		 : FILTER, DISTINCT, FOREACH, GENERATE, STREAM, SAMPLE
+ - Grouping		 : JOIN, COGROUP, GROUP, CROSS
+ - Sorting		 : ORDER, LIMIT
+ - Combining / Splitting : UNION, SPLIT
+
+Relation operators produce relations, a collection of tuples
+
+Relations can be named using an alias 
+	i.e. 	x = LOAD 'sample.txt' AS (id: int, year: int)
+		DUMP x		# (1,1987)		  <- tuple
+		DESCRIBE x	# x: {id: int, year: int} <- scheme
+
+Relations can also contain expressions.
+	Categories of Expressions:
+	 * Constant
+	 * Field
+	 * Conditional
+	 * Functional
+	 * Boolean
+	 * Arithmetic
+	 * Projection
+	 * Comparison
+	 * etc.
+
+Data Types:
+	int, float, long, double, bytearray, chararray
+	tuple (sequence of fields)
+	bag (unordered collection of tuples)
+	map (key-value). Keys must be chararray
+
+Function Types:
+	Eval 	(input multiple expressions, output one expression) - like MAX
+	Filter 	(input bag/map, output boolean) - like IsEmpty
+	Load 	(read from file, output relation)
+	Store 	(input relation, write to file)
+UDF:
+ - write in Java
+ - package in JAR
+ - Register JAR using REGISTER
+ - Alias function using DEFINE
+
+------------------------------------------------------------------------------
+
+Example running:
+# start.sh hadoop
+# hadoop fs -put Desktop/econ_assist.csv econ_assist.csv (copy file into HDFS)
+# /opt/ibm/biginsights/pig/bin/pig
+
+grunt> records = LOAD 'excon_assist.csv' using PigStorage(',') AS (country:chararray, sum:long);
+grunt> grouped = GROUP records BY country;
+grunt> thesum = FOREACH grouped GENERATE group, SUM(records.sum);
+grunt> DUMP thesum;
+
+---------
+ output (outputs are tuples!)
+---------
+(country, number)
+(country, number)
+(country, number)
+...
+
+What does this do?
+* load data from comma-separated value file, pass a comma and apply schema
+* then group by country, assigning result to alias 'grouped'
+* then for each group in'grouped', generate a sum of values in sum column
+* alias 'thesum' and DUMP
+* runs Hadoop to give us answer

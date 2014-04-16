@@ -1,0 +1,139 @@
+Map-Reduce submitting a job (part2)
+
+8 steps to MapReduce jobs on Hadoop
+
+1) Tell JobClient to run a MapReduce Job
+
+2) JobClient requests jobID from JobTracker
+3) JobClient copies job resources to shared file system (HDFS)
+	job resources like Java code, jar file for map/reduce tasks
+4) JobClient submits job with jobID to JobTracker
+
+5) JobTracker initializes job, splitting the input data
+	It calculates "input splits" returned by DFS
+	so it can maximize throughput over different mapper processes
+
+6) TaskTracker continually requesting for work (by sending heartbeat messages)
+	and JobTracker replies with a map/reduce task
+	 - Task Tracker retrieves a task by requesting until it gets a response
+
+7) TaskTrackers retrieve job resources by looking into the DFS
+8) TaskTrackers launch a JVM with a child process running map/reduce code
+
+
+-------------------------------------------------------------------------
+How Map/Reduce operations work in sequence on data to produce output (part3)
+
+First step is the map step.
+	- Takes subset of full data set (input split)
+	- Applies function map_task to each row in input split
+	(can be multiple map operations running in parallel, each with its own input split)
+
+Output is buffered in memory and onto disk.
+Output is sorted/partitioned by key using a default partitioner
+A merge sort sorts each partition.
+The partitions are shuffled amongst the reducers
+
+Second step is the Reduce step.
+Each reducer does its own merge steps and executes function reduce_task on all partitions
+Each reducer produces a sorted output.
+
+Example:
+InputSplitA -> MAP(fn) -> aP1, aP2 (2 partitions from A)
+InputSplitB -> MAP(fn) -> bP1, bP2 (2 partitions from B)
+
+The partitions get shuffled amongst the reducers
+
+Reducer1 receives aP1, bP1 (Reducer 1 gets all first partitions)
+Reducer2 receives aP2, bP2 (Reducer 2 gets all second partitions)
+
+Reducer1 merges its partitions and applies REDUCE(fn') -> output1
+Reducer2 merges its partitions and applies REDUCE(fn') -> output2
+
+
+So... if we had M map processes and R reduce processes
+ - Input is split into I input splits
+	Every map process takes in 1 input split and produces around R partitions
+ - In total, the MAP step takes in I splits and produces M*R partitions
+	Every reduce process takes in M partitions and produces one output
+ - In total, the REDUCE step takes in M*R partitions and produces R outputs
+
+-------------------------------------------------------------------------
+Data Types (part4)
+
+Data flowing in/out/between mappers/reducers take a specific form
+Data enters Hadoop (unstructured) and Hadoop changes it to key-value pairs
+
+			Input			Output
+The mapper 		<k1,v1>			list(<k2,v2>)
+The shuffler groups them together for the reducer. 
+	Also removes duplicate keys mapping to same values
+The reducer		<k2, list(v2)>		list(<k3,v3>)
+
+Example:
+Let's say you have the following input: [A,B,B,C,D]
+and you want to count how many occurences of each letter there are in input
+
+First step: Hadoop turns input data into key-value pairs map<k1,v1>
+(0,A), (1,B), (2,B), (3,C), (4,D)
+
+MAP step: Map counts each occurence as 1 producing another key-value pairs (list<k2,v2>)
+{ (A,1), (B,1), (B,1), (C,1), (D,1) } as you can see, key of B occurs more than once. 
+
+SHUFFLE Step: Shuffle groups records having same key together.
+		Every key maps to a list of values that had same key (<k2, list(v2)>)
+(A,[1]), (B,[1,1]), (C,[1]), (D,[1]) as you can see, B points to a list of 1's since there were duplicates of key B
+
+REDUCE Step: Reduce simplifies the list of values into one value (list(<k3,v3>))
+{ (A,1), (B,2), (C,1), (D,1) }
+
+Output!
+-------------------------------------------------------------------------
+Hadoop Fault Tolerance (part5)
+
+ - Task Failure
+	bug in code of map/reduce task
+	if child task fails, child JVM reports to TaskTracker
+		Attempt is marked fail and free slot for another task
+	if child task hangs, it is killed. JobTracker reschedules task on another machine (maybe hardware prob)
+	if child task continues to fail, entire job is failed.
+	
+ - TaskTracker Failure
+	Jobtracker is expecting heartbeat messages
+	If no heartbeat, it removes TaskTracker from its pool
+	
+ - JobTracker Failure
+	Single point failure.
+	If it fails, your job is failed. Great.
+
+-------------------------------------------------------------------------
+Scheduling (part6)
+Hadoop schedules jobs using one of three schedulers.
+
+Users submit jobs while other jobs are running
+
+(1) Default FIFO scheduler (with priorities)
+	Jobs are queued so that only one job is running at a time.
+	Jobs wait their turn
+	Safe but slow (one job at a time)
+
+(2) Fair scheduler
+	Jobs placed in pools
+	Allows multiple users to compete over cluster resources
+	but still gives every user an equal share.
+	(guaranteed minimum capacities of resources)
+	Faster
+
+(3) Capacity scheduler
+	Hadoop simulates, per user, a separate cluster with FIFO scheduling
+	But users are actually sharing resources
+
+Speeding up Task Execution
+ (1) Speculative Execution
+	Hadoop detects slow running tasks and launches same task on another node
+	The 2nd is a backup and is independent / self-contained
+	Whichever task finishes first, its output is used.
+ (2) Task JVM Reuse
+	Tasks are run in own JVM for isolation (by default)
+	But starting up new JVMs are expensive, especially when the jobs are short
+	so you can instead just reuse the same JVM for different tasks

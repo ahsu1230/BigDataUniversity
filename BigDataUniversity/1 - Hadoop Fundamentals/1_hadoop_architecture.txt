@@ -1,0 +1,111 @@
+Hadoop architecture
+
+Teminology Review:
+ - Node: a computer.
+ - Rack: A collection of nodes that are physically stored close together
+	 All nodes are connected to same network switch
+     * Network bandwidth between nodes in same rack > bandwidth of nodes in different rack
+ - Hadoop Cluster: A collection of racks
+
+
+2 main components of Hadoop
+ - Hadoop Distributed Filesystem (HDFS)
+ - MapReduce - Framework for calculations over the distributed file system (DFS)
+
+HDFS:
+ - Runs on top of existing file systems on each node in a cluster
+ - Designed to handle very large files, but with streaming data access patterns
+	- sequential data access (not random data)
+	- you want to minimize data "seeks"
+ - Uses blocks to store a file / parts of a file
+
+File Blocks:
+    :: 64 MB (default) or 128 (recommended) compare to 4 KB in Unix
+    :: 1 HDFS Block consists of multiple OS blocks
+
+    Advantages:
+	:: fixed in size - easy to calculate to fit on a disk
+	:: file can be larger than any disk in the network (so just use file block instead)
+	:: If a file / file chuck is smaller than block size, only needed space is used.
+		128, 128, 128, 36
+	:: Fault Tolerant & Availability - Replication
+
+HDFS Replication
+ - Blocks are replicated to multiple nodes
+	 - so nodes failing doesn't lose data
+
+MapReduce Engine:
+ - Made by Google
+ - Two functions: Map & Reduce
+ - A MapReduce job is broken into tasks that run in parallel
+	* Map runs in parallel
+	* Reduce runs in parallel
+
+
+Hadoop Cluster Framework
+main HDFS nodes:
+ - NameNode
+ - DataNode
+
+main MapReduce nodes
+ - JobTracker
+ - TaskTracker
+
+
+
+Client -> Job Tracker -> Task Tracker(s) -> NameNode (all Task Tracker looks to same NameNode)
+					 -> DataNodes
+
+NameNode:
+	- only one per Hadoop cluster
+	- Manages the filesystem namespace & metadata
+	- Single Point of failure:
+		- write its states to multiple locations / filesystems (i.e. local disk & NFS)
+		- Large memory requirements (metadata for all files)
+		- Namenode needs to be the MOST reliable!!
+DataNode:
+	- Many per Hadoop Cluster
+	- Manages blocks of data and when client requests a file, 
+		client finds out from NameNode which DataNodes store the wanted blocks
+		client reads those blocks from the individual DataNodes
+	- report to NameNode (periodically) with list of blocks it is storing
+	- can be inexpensive, replication done on software layer
+
+JobTracker:
+	- One per Hadoop Cluster
+	- Manages MapReduce jobs
+	- Receives job requests from clients
+		schedules Map/Reduce tasks on TaskTrackers (in a "rack-aware" manner)
+		monitors failing tasks that need to be rescheduled to different TaskTracker
+TaskTracker:
+	- Many per Hadoop Cluster
+	- Each TaskTracker spawns Java Virtual Machines to run map/reduce tasks
+
+
+--------------------------------------------------------------------------------------
+
+
+Topology: Allows Hadoop to optimize how to compute data (maximizing bandwidth usage).
+
+When deciding which TaskTracker should receive a MapTask (that would read data from a certain block)
+	Choose the TaskTracker that runs on same node as the data
+	If can't on same node, try same rack
+	If can't on same rack, try different rack... (worst case)
+
+* Always try to run on highest bandwidth access for data (closest to data)
+
+
+Writing a file to HDFS:
+  (1) Client submits "create" request to NameNode
+	NameNode checks file (if does not alrady exist) and client permissions
+  (2) NameNode determines the DataNode to write first block to
+	If Client is on a DataNode, block will be on client's local storage
+	Otherwise, block location chosen at random
+  (3) Data is replicated to two other DataNoes in cluster
+	2nd DataNode chosen at random
+	3rd DataNode is in same rack
+	Pipelines are built between 1st->2nd, 2nd->3rd
+	To ensure successful writing, acknowledgement packets are sent from 3rd->2nd, 2nd->1st, 1st->client
+	
+  (4) Once client has submitted all write requests, received acknowledgements, it tells NameNode it is complete
+	NameNode checks that blocks are minimally replicated before responding.

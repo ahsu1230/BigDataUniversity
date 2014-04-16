@@ -1,0 +1,54 @@
+MapReduce Engine
+
+Two component operations: Map & Reduce
+ - Comes from functional programming (passing in functions as parameters)
+
+Starting with a for loop example: (double all elements in an array)
+
+a = [1,2,3] and comes out as a = [4,5,6]
+
+so for each element, 
+	a[i] = fn(a[i]), 
+	where fn takes in a value, and returns its doubled value
+
+We can pass the function (fn) as an argument to MAP, like so:
+
+function map (fn, a) {
+	for (i=0; i < a.length; i++) {
+		a[i] = fn(a[i]);
+	}
+}
+
+And can call that function like so: map(function(x) {return x*2;}, a);
+
+So What? What if we had a billion elements and have thousands of computers
+and want to take advantage of parallelism to quickly computer all those elements
+
+If we wanted to double all elements in parallel, we would have to rewrite this program
+But, if we used MAP, we would just a parallel implementation of MAP (and pass in the doubling function)!
+
+
+Cool, and REDUCE?
+
+Another for loop example: (sum all elements of an array)
+we can pass a function to take in an element and add it to a current sum
+so fn can be defined like so:
+function fn (a,b) { return a+b; }, using sum = fn(sum, a[i])
+
+function reduce(fn, a, init) {
+	s = init;
+	for (i=0; i < a.length; i++) {
+		s = fn(s, a[i]);
+	}
+	return s;
+}
+and can call that function like so: reduce(function(a,b) {return a+b;},a,0);
+
+Advantages: LARGE DATA & want to parallelize!
+	we don't need to change our functions
+	we just need a better map/reduce functions
+
+That's where Hadoop MapReduce comes in! It has parallel, distributed, fault-tolerant
+implementations of Map & Reduce that let you run functions on VERY large amounts of data!
+
+SO COOL <3

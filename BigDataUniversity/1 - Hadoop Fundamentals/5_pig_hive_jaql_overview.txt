@@ -1,0 +1,39 @@
+Pig, Hive, JaQL
+
+3 technologies that make it easier to write MapReduce programs
+They all translate high-level languages into MapReduce jobs 
+Programmer does not need to jump into MapReduce level to write jobs (lower level languages like Java)
+
+Higher level languages let you write programs that are much smaller and simpler
+And if there's something they do not support themselves, you can extend those languages
+
+Pig, Hive, JaQL run on top of Hadoop, so they have the same limitations with respect to reads/writes/low-latency queries
+for good Hadoop usage.
+
+:::::::::::::::::: Pig ::::::::::::::::::
+ - developed by Yahoo Research around 2006
+ - Language: PigLatin
+	* data flow language - program by connecting things together
+ - Can operate nested data structures
+ - Unlike SQL, does not require a schema (can process unstructured data)
+ - Like SQL, Pig is relationally complete
+ - not Turing complete on own
+	* but can be Turing complete with UDF extensions
+	* to be Turing complete, requires looping construct, infinite memory model, and conditional constructs
+
+:::::::::::::::::: Hive ::::::::::::::::::
+ - developed by Facebook
+ - Language: HiveQL
+	* describe result, and HiveQL creates data flow
+ - Turns Hadoop into a data warehouse with SQL dialect for querying
+ - Schema is required (can have multiple schema)
+ - Relationally complete
+ - Not Turing Complete language
+	* but can be Turing Complete with UDF extensions
+
+:::::::::::::::::: JaQL ::::::::::::::::::
+ - developed by IBM
+	* data flow language
+	* native data structure format is JavaScript Object Notation (JSON)
+ - Schemas are optional
+ - Turing Complete on its own

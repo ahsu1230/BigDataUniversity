@@ -1,0 +1,33 @@
+Hadoop Administration
+
+:::::: Adding / Removing nodes from Cluster ::::::
+Can be performed from BigInsights Web console or terminal
+ - requires IP address or node (that is reachable)
+	i.e. test to see if it's reachable: ssh 192.168.44.15
+ - Adding a slave node SHOULD not have BigInsights/Hadoop software
+ - must edit /etc/hosts on both master/slave nodes
+	* hostnames & ip addresses
+
+i.e. with terminal
+cd $BIGINSIGHTS_HOME/bin
+./addnode.sh hadoop ipaddr,password
+./removenode.sh ipaddr
+./listnode.sh
+
+
+:::::: Verifying cluster health ::::::::::::::::::
+Observe Status tab in BigInsights Web console
+
+i.e. with terminal
+hadoop dfsadmin -report
+
+Performs DFS Disk Check to determine if low disk storage
+
+
+:::::: Stopping / Starting components/services :::
+
+Not all services/components may need to be running
+Stopping some can save resources
+i.e. with terminal
+
+./stop.sh hadoop console

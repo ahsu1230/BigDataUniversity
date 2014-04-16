@@ -1,0 +1,44 @@
+HDFS Command Line Interface
+
+Familiar to UNIX
+ - HDFS can either be manipulated through Java API or through command line interface
+ - All commands begin are in format "hadoop fs" (for file system shell)
+
+File System Shell (fs)
+$ hadoop fs <args>
+
+Example: Listing current directory in hdfs
+$ hadoop fs -ls
+
+
+First run start.sh script to bring up Hadoop nodes
+	- the NameNode
+	- the 2nd NameNode
+	- a   DataNode
+	- the Jobtracker
+	- a   Tasktracker
+
+Path URI (Uniform Resource Identifiers)
+    URI format consts of scheme, authority, and path
+	(scheme://authority/path)
+    Scheme:
+    	local filesystem, scheme=file
+	HDFS, scheme=hdfs
+    Example: Copy a file called "myfile.txt" from local system to HDFS file system (on localhost)
+		-copyFromLocal command takes URIs for source and destination (scheme/authority are optional and have default values)
+	hadoop fs -copyFromLocal
+		file://myfile.txt
+		hdfs://localhost/user/aaron/myfile.txt
+
+copyFromLocal == put 	: copy files from local filesystem to specified filesystem
+CopyToLocal == get	: cope files out of specified filesystem to local
+getmerge		: extension of get (merges files from multiple locations to single local file)
+
+$ hadoop fs -put myfile.txt hdfs://localhost/myfile.txt
+$ hadoop fs -copyFromLocal myfile.txt hdfs://localhost/myfile2.txt
+$ hadoop fs -getmerge hdfs://localhost/myfiles.txt
+
+setRep			: override default level of replication (for one file)
+			: use -R for an entire file tree
+			: use -w to wait until new replication level is achieved
+$ hadoop fs -setrep [-R][-w]<rep><path>

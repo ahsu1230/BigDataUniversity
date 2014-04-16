@@ -1,0 +1,109 @@
+Flume Architecture:
+ - open source software program by Cloudera
+ - acts as a service for aggregating/moving large amounts of data
+	around Hadoop cluster
+ - primary use is gathering log files from all machines to centralized persistent store (HDFS)
+
+In Flume, create data flows through chains of logical nodes
+	source -> logical node -> sink
+
+Example: tail("acces.log") -> logical node -> HDFS
+	move data from an Apache access log into HDFS
+
+
+3 Tier Design
+	- Agent Tier	 - source of data that is moved
+	- Collector Tier - multiple collectors collecting data coming in from multiple agents
+	- Storage Tier	 - file system like HDFS
+
+Example: tail("acces.log") -> Agent1 -> Collector1 	-> 	HDFS
+		          Agent Tier	Collector Tier		Storage Tier
+
+Another Example:
+	Can have 4 Agent Nodes -> 2 Collector Nodes -> HDFS (one storage tier)
+
+	* Having more collector processes allows better parallelism 
+	  in data flow into HDFS from web servers
+
+Controlling all of these agent/collector processes is done by a master
+Master is capable of reconfiguring routes on the fly
+	- communicates with all nodes
+	- can recommission poorly performing nodes
+
+
+Flume Design
+ - Reliability
+ - Scalability
+ - Manageability
+ - Extensibility
+
+ (1) Reliability:
+	End-to-end: 		guarantees event reaches endpoint
+	Store on failure: 	guarantees event reaches next node in chain
+	Best effort: 		no guarantees
+
+ (2) Scalability:
+	Collector Tier:		Workload is parallelizable. Randomizes assigments of flows to collectors (for load balancing)
+	Storage Tier:		Buffered data to storage tier to avoid spikes
+	Master:			Can have multiple masters replicating states
+
+ (3) Manageability:
+	- Centralized Management for monitoring data flows
+	- Automatically repond to system changes, like:
+		* Load imbalances
+		* Partial failures
+		* Newly provisioned hardware
+	- Build node topologies of arbitrary size, complexity
+	- Flexible dataflow specification language to build up these topologies
+
+ (4) Extensibility:
+	- Can add new source extensions
+	- Can add new sink extensions
+	- Apply processing to data as moves through flow via decorator extensions
+
+Modes:
+ - Single Node
+	~ Run flume command
+	~ Good for basic testing
+ - Pseudo-Distributed
+	~ Launch flume master, nodes, on localhost
+	~ Still test on single machine
+	~ More production like environment to build complicated sources/sinks connections
+ - Fully-Distributed
+	~ Run for production
+	~ Standalone mode:  single master
+	~ Distributed mode: multiple masters
+
+Single Node Mode:
+	- DUMP command gives you a source/sink all in one command
+		flume dump console			# (echo stdin to stdout)
+		flume dump 'text(...)'			# (read from text file)
+		flume dump 'tail(...)'			# (stream text data)
+		flume dump 'multitail(... , ...)'	# (stream text data from multiple files)
+Pseudo Distributed Mode:
+	- runs like a real production Flume environment (on one machine)
+	- Flume Daemons (Master, at least one Node, configured via http)
+		flume master 		http://localhost:35871/
+		flame node_nowatch	http://localhost:35862/
+	- Other event sink examples:
+		null (drops event), console (stdout), text (text file), dfs (distributed file system path)
+
+Another Example: 1 master, 2 nodes (one collector, one agent, use -n for names)
+	flume node_nowatch -n agent
+	flume node_nowatch -n collector
+	agent: console | agentSink("localhost", 35853);
+	collector: collectorSource(35853) | console;
+
+    * 	Last 2 lines connects agent to source 	(connects agent to collector)
+	Then connects collector to sink		(connects collector to agent)
+	Use number 35853 to identify the collector. 
+
+Distributed Mode:
+	- Edit conf/flume-site.xml, specify names of machines and master servers
+
+
+:::::: Flume Event Data Model ::::::
+Data flows through Flume in form of events
+All events have two parts: body and metadata
+	~ Body:		string of bytes containing content of event (default 32 KB)
+	~ Metadata:	table of key/value pairs -> can control output path of event / routing decisions

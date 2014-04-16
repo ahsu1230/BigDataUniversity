@@ -1,0 +1,77 @@
+:::::::::::::::::: JaQL ::::::::::::::::::
+ - developed by IBM
+	* data flow language
+	* native data structure format is JavaScript Object Notation (JSON)
+ - Schemas are optional
+ - Turing Complete on its own
+
+--------------------------------------------------------------------------------
+
+JaQL
+ - JSON is the data standard and human-readable. Also designed to be light weight
+ - Run JaQL using shell
+	(1) jaqlshell 			 (Interactive)
+	(2) jaqlshell -b myscript.jaql 	 (Batch)
+	(3) jaqlshell -e 'jaqlstatement' (Inline program)
+ - Modes
+	- Cluster	jaqlshell -c
+	- Minicluster 	jaqlshell
+
+
+JaQL is a data flow language
+ - Sources & Sinks
+	Example: source = "input.json" file, sink = "output" on hdfs
+	read(file("input.json")) -> write (hdfs("output"))
+
+ - Core Operators
+	Filter, Transform, Expand
+	Group, Join, Union
+	Tee, Sort, Top
+
+Variables
+ - = operator binds source output to a variable
+	$tweets = read(hdfs("twitterfeed"))
+ - Pipes, streams, consumers
+	Pipe operator (->) streams data to consumer
+	Pipe expects array as input ($tweets -> filter $.from_src == 'tweetdeck')
+	$ - implicit variable referencing current array value (this)
+
+Jaql has lots of built in functions
+Jaql supports many different data stores (HDFS, DB2, JDBC, JSON, CSV, XML)
+
+
+--------------------------------------------------------------------------------
+
+Example running
+# /opt/ibm/biginsights/jaql/bin/jaqlshell -c
+jaql> $foreignaid = read(del("econ_assist.csv",
+	{ schema: schema { country: string, 
+			   sum: long } } ));
+
+jaql> $foreignaid
+-> group by $country = {$.country}
+into {$country.country, sums: sum($[*].sum) };
+
+---------
+ output (in JSON format)
+---------
+[
+    {
+	"country" : Spain,
+	"sums": number
+    },
+    {
+	"country" : Turkey,
+	"sums": number
+    }
+]
+
+
+What happens?
+Start by reading the text file using del because fil is in comma separated value format
+Assign source to variable $foreignaid
+Assign schema so we can refer to country and sum fields  and sum is treated as long
+Pipe data from $foreignaid source to GROUP BY which groups data by country
+	we specify the country field of the $ implicit variable as argument to GROUP BY
+	we use INTO to describe output (country, sum of all values in sum field for that country)
+Output is in JSON format

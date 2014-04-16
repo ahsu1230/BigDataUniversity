@@ -1,0 +1,150 @@
+:::::::::::::::::: Hive ::::::::::::::::::
+ - developed by Facebook
+ - Language: HiveQL
+	* describe result, and HiveQL creates data flow
+ - Turns Hadoop into a data warehouse with SQL dialect for querying
+ - Schema is required (can have multiple schema)
+ - Relationally complete
+ - Not Turing Complete language
+	* but can be Turing Complete with UDF extensions
+
+------------------------------------------------------------------------------
+
+Configuration (3 methods)
+ (1) edit file hive-site.xml
+	* fs.default.name, mapred.job.tracker (location of NameNode / JobTracker)
+ (2) hive -hiveconf (run Hive command shell with option)
+ (3) hive set command
+
+Running Hive (3 ways) with Hive Shell
+ (1) hive 				(interactive)
+ (2) hive -f myscript			(script)
+ (3) hive -e 'SELECT * FROM mytable'	(inline program)
+
+Supported Launching Services:
+  hive --service 'servicename'
+  'servicename' could be
+	- hiveserver 	(Thrift, JDBC, ODBC)
+	- hwi		(web interface)
+	- jar		(hadoop jar with Hive jars)
+	- metastore	(out of process metastore)
+
+Hive Metadata:
+  Metastore stores Hive metadata
+  3 configurations
+	- Embedded:	In process metastore, in process database (same processes as Hive program)
+	- Local:	In process metastore, out of process database
+	- Remote:	Out of process metastore, out of process database
+
+Hive Schema-On-Read:
+ - SQL is usually schema-on-write. Schema is applied as data is wrote to database.
+ - Hive's approach is to defer schema until you read data from database
+	* Faster loads into database
+	* Flexibility using multiple schemas for the same data
+	* But, slower queries
+
+HiveQL (query language) is SQL dialect. 
+    It does not support full SQL functionality/querying
+    Has MySQL Extensions
+    Data Type Extensions
+	- INT, STRING, ARRAY, MAP, STRUCT
+    Built-in Functions
+	- view using SHOW FUNCTIONS and DESCRIBE FUNCTION
+
+HiveQL Tables
+ - Managed (managed inside Hive)
+	- LOAD ( Filed moved into Hive's data warehouse directory )
+	- DROP ( Both metadata and data deleted )
+ - External (managed outside Hive)
+	- LOAD ( No files moved )
+	- DROP ( Only metadata deleted )
+For External tables, files are left alone. This is useful for sharing data
+between Hive and other Hadoop applications
+
+Hive partitioning:
+	- speed up some queries
+	- divide data by column values
+	- (PARTITION BY)    when creating table to specify how to partition data
+	- (PARTITION)       when loading data
+	- (SHOW PARTITIONS) show table's partitions
+
+Hive bucketing:
+	- speed up some queries
+	- Like partitioning, split by column
+	- Unlike partitioning, give # of buckets to split table into
+	- Useful for sampling data
+	- (CLUSTERED BY)    to specify column to split into buckets
+	- (SORTED BY)       to sort data within buckets
+	- (TABLESAMPLE)     to query sample of data (not whole set)
+
+Hive reading:
+	- Delimited Text (default)
+		row format
+	- Serializer / Deserializer (SerDe) (Binary format)
+		used to translate to/from storage format
+		row format
+	- Binary SerDe
+		can deal with row-oriented data (Sequence file)
+		can deal with column-oriented	(RC file)
+Hive UDF:
+ - written in Java
+ - 3 types	(input -> output)
+	(1) UDF		Single Row -> Single Row
+	(2) UDAF	Multiple Rows -> Single Row
+	(3) UDTF	Single Row -> Multiple Rows
+ - Register UDF using ADD JAR
+ - Create alias using CREATE TEMPORARY FUNCTION
+
+
+------------------------------------------------------------------------------
+Example running:
+# start.sh hive
+# /opt/ibm/biginsights/hive/bin/hive
+hive> CREATE TABLE foreign_aid
+	> (country STRING, sum BIGINT)
+	> ROW FORMAT DELIMITED
+	> FIELDS TERMINATED BY ','
+	> STORED AS TEXTFILE;
+
+hive> SHOW TABLES;
+
+hive> DESCRIBE foreign_aid;
+
+hive> LOAD DATA INPATH 'econ_assist.csv'
+	> OVERWRITE INTO TABLE foreign_aid;
+
+hive> SELECT * FROM forieng_aid LIMIT 10;
+
+---------
+ output
+---------
+Afghanistan	number
+Afghanistan	number
+Afghanistan	number
+...
+
+
+hive> SELECT country, SUM(sum) FROM foreign_aid GROUP BY country;
+
+---------
+ output
+---------
+Country		number
+Country 	number
+Country 	number
+...
+
+
+
+What happened?
+First, create a table to store foreign aid data
+Give it schema by specifying country and sum in 1st/2nd columns
+File is comma delimited, so we specify row format as 'delimited' terminated by comma
+data is stored on disk as a textfile
+
+See our table when we run SHOW TABLES
+We can see its schema using DESCRIBE
+Load data from HDFS into our newly created table
+write SELECT with a LIMIT to get back a small portion of data
+Compute sum for each country - use GROUP BY clause
+Hadoop's Maps & reduces are run to get result

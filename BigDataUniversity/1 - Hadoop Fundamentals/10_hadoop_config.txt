@@ -1,0 +1,46 @@
+Hadoop Configuration
+
+Standalone or Local mode
+ - single machine
+ - no daemons running
+ - runs on single JVM
+ - Standard OS storage
+ - good for development and testing with small data
+	- but may not catch all errors (not comprehensive)
+
+Pseudo-distributed mode
+ - single machine but cluster is simulated
+ - daemons run
+ - separate JVMs
+ - great for development / Debugging
+	- best for comprehensive testing and development usage
+
+Fully-distributed mode
+ - Run hadoop on cluster of machines
+ - daemons run
+ - production environment
+
+
+----------------------------------------------------------------------
+Configuration files
+
+three main ones
+ - core-site.xml (All Hadoop Core, I/O settings, HDFS / MapReduce)
+ - hdfs-site.xml (HDFS daemons, name node, secondary name node, data nodes, etc.)
+ - mapred-site.xml (MapReduce daemons, jobtracker, tasktrackers, etc.)
+
+hadoop-env.sh
+ - export JAVA_HOME (required to be set to java JDK)
+ - BIGINSIGHTS_HOME - environment variable directory contains code & config files
+ - BIGINSIGHTS_VAR - environment variable directory keeps logs
+
+
+----------------------------------------------------------------------
+Rack awareness (setting up rack topology)
+ - defined by script to specify which node is on which rack
+ - script: topology.script.property.file in core-site.xml
+ - network topology script: 
+	topology.script.file.name 
+	    receives IP addresses as argument of nodes in cluster
+	    returns stdout a list of rack names (one per input)
+	    the input and output order must be consistent
