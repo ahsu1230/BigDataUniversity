@@ -1,0 +1,36 @@
+Video 1:
+What is Hadoop?
+open source project of the Apache Foundation
+Framework written in Java, uses Google MapReduce & File System?
+
+Optimized to handle massive amounts of data through parallelism
+		Data can be structured/unstructured
+		Doesn't require expensive hardware
+Great performance (concurrent processing)
+Reliability provided through replication (over different computers)
+
+Bad for: OLTP (online transaction processing) where data is randomly accessed from structure data
+Bad for: OLAP (online analytical processing) where data is sequentially accessed from structure data
+
+Good for: Big Data - complements OLTP & OLAP.
+	  Big Data is when data grows so large & quickly
+		that it is difficult to manage on regular database or usual statistic tools
+
+Open Source Projects
+Eclipse	(IBM)
+Lucene 	(text search engine in Java)
+Hbase 	(Hadoop database)
+Hive 	(data warehousing tools to query data in Hadoop files)
+Pig 	(platform for analyzing large data sets)
+Jaql  	(query language for JavaScript open notation)
+
+Hadoop is not for all types of work:
+ - data is randomly accessed (not good for process transactions)
+ - not good for work cannot be parallelized
+ - not good for low latency data access
+ - not good for lots of small files
+ - not good for little data
+
+Big Data <3 Cloud
+	- Cloud allows you to set up cluster of systems
+	- on demand, and inexpensive (pay for what you use)
