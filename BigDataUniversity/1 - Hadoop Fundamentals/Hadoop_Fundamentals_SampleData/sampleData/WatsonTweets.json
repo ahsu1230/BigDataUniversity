@@ -1,0 +1,328 @@
+[{
+  "completed_in": 0.079,
+  "max_id": 256895038552932352,
+  "max_id_str": "256895038552932352",
+  "next_page": "?page=2&max_id=256895038552932352&q=IBM%20Watson",
+  "page": 1,
+  "query": "IBM+Watson",
+  "refresh_url": "?since_id=256895038552932352&q=IBM%20Watson",
+  "results": [
+    {
+      "created_at": "Fri, 12 Oct 2012 23:12:04 +0000",
+      "from_user": "likesky3",
+      "from_user_id": 98395292,
+      "from_user_id_str": "98395292",
+      "from_user_name": "Soo-Yong Shin",
+      "geo": null,
+      "id": 256895038552932352,
+      "id_str": "256895038552932352",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1462807106/________normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1462807106/________normal.jpg",
+      "source": "&lt;a href=&quot;http://twicca.r246.jp/&quot;&gt;twicca&lt;/a&gt;",
+      "text": "RT @westr: RT @IBMWatson: @HPinsider Here\'s an animation of how #ibmwatson answers questions: http://t.co/DTGqPxZO #PM101 6\' vid #hcsm",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 22:39:47 +0000",
+      "from_user": "descheneaglqhl3",
+      "from_user_id": 466711376,
+      "from_user_id_str": "466711376",
+      "from_user_name": "Deschene Law",
+      "geo": null,
+      "id": 256886911937945600,
+      "id_str": "256886911937945600",
+      "iso_language_code": "es",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/sticky/default_profile_images/default_profile_5_normal.png",
+      "profile_image_url_https": "https://si0.twimg.com/sticky/default_profile_images/default_profile_5_normal.png",
+      "source": "&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;",
+      "text": "RT @Valanzuelaf: \"Si quieres tener éxito, duplica tu porcentaje de fracasos\"\n(Tom Watson, fundador de IBM)",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 22:13:51 +0000",
+      "from_user": "robatcup",
+      "from_user_id": 784932223,
+      "from_user_id_str": "784932223",
+      "from_user_name": "robatcup",
+      "geo": null,
+      "id": 256880386100035584,
+      "id_str": "256880386100035584",
+      "iso_language_code": "pt",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/2549248610/n53b2l49v4n9npvgldru_normal.jpeg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/2549248610/n53b2l49v4n9npvgldru_normal.jpeg",
+      "source": "&lt;a href=&quot;http://imaginecup.com&quot;&gt;RobatCup&lt;/a&gt;",
+      "text": "#Acho que existe um mercado mundial para cerca de cinco computadores. #Thomas J Watson -Diretor da #IBM, em 1958 #InstantFollowBack",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 22:04:58 +0000",
+      "from_user": "akucchan_world",
+      "from_user_id": 234352293,
+      "from_user_id_str": "234352293",
+      "from_user_name": "Takeshi Akutsu",
+      "geo": null,
+      "id": 256878151970459648,
+      "id_str": "256878151970459648",
+      "iso_language_code": "ja",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1216345873/70755_100001902148705_8207987_q_normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1216345873/70755_100001902148705_8207987_q_normal.jpg",
+      "source": "&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;",
+      "text": "@ProfMatsuoka IBMのY.Vlasov氏などの研究者たちは光コンピューティングへ向かっていますが、SC/HPC業界の方々の関心度が気になっています。やはり信頼性の問題などを考えると、電気技術がまだまだ主流な気がしています。　http://t.co/dnbI8LEH",
+      "to_user": "ProfMatsuoka",
+      "to_user_id": 59962128,
+      "to_user_id_str": "59962128",
+      "to_user_name": "Satoshi Matsuoka"
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 21:16:27 +0000",
+      "from_user": "PamelaSchott",
+      "from_user_id": 20661208,
+      "from_user_id_str": "20661208",
+      "from_user_name": "Pamela Schott",
+      "geo": null,
+      "id": 256865939633614850,
+      "id_str": "256865939633614850",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/2624592903/qr08x7coe0qfz14vdwym_normal.png",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/2624592903/qr08x7coe0qfz14vdwym_normal.png",
+      "source": "&lt;a href=&quot;http://www.hootsuite.com&quot;&gt;HootSuite&lt;/a&gt;",
+      "text": "I think there is a world market for maybe five computers. - Thomas John Watson, Sr. CEO IBM #quotes",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 20:45:28 +0000",
+      "from_user": "ibmwatsonbot",
+      "from_user_id": 226793352,
+      "from_user_id_str": "226793352",
+      "from_user_name": "IBMWatson Bot",
+      "geo": null,
+      "id": 256858143487836160,
+      "id_str": "256858143487836160",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1190893935/ibm-watson_normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1190893935/ibm-watson_normal.jpg",
+      "source": "&lt;a href=&quot;http://ifttt.com&quot;&gt;IFTTT&lt;/a&gt;",
+      "text": "IBM - The Science Behind an Answer http://t.co/4Nb1snE3",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 20:07:11 +0000",
+      "from_user": "CarrieBendzsa",
+      "from_user_id": 17466386,
+      "from_user_id_str": "17466386",
+      "from_user_name": "Carrie Bendzsa",
+      "geo": null,
+      "id": 256848509490311168,
+      "id_str": "256848509490311168",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/2265986262/smit7bo3fpyh4vmy5kft_normal.jpeg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/2265986262/smit7bo3fpyh4vmy5kft_normal.jpeg",
+      "source": "&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;",
+      "text": "Hear IBM Watson researcher Dr. Eric Brown @WCIT2012mtl, Oct 22-24. Register: http://t.co/nrMRgcnE",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:55:42 +0000",
+      "from_user": "Valanzuelaf",
+      "from_user_id": 283439211,
+      "from_user_id_str": "283439211",
+      "from_user_name": "Antonio Valanzuela",
+      "geo": null,
+      "id": 256845619803586560,
+      "id_str": "256845619803586560",
+      "iso_language_code": "es",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1326239754/39508_146581725359863_100000241088178_358014_3439293_n_normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1326239754/39508_146581725359863_100000241088178_358014_3439293_n_normal.jpg",
+      "source": "&lt;a href=&quot;http://twitter.com/#!/download/ipad&quot;&gt;Twitter for iPad&lt;/a&gt;",
+      "text": "\"Si quieres tener éxito, duplica tu porcentaje de fracasos\"\n(Tom Watson, fundador de IBM)",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:40:03 +0000",
+      "from_user": "HealthcareNovel",
+      "from_user_id": 432651637,
+      "from_user_id_str": "432651637",
+      "from_user_name": "Robert Green",
+      "geo": null,
+      "id": 256841680966270977,
+      "id_str": "256841680966270977",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1901744767/BobGreen_normal.jpeg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1901744767/BobGreen_normal.jpeg",
+      "source": "&lt;a href=&quot;http://www.tweetdeck.com&quot;&gt;TweetDeck&lt;/a&gt;",
+      "text": "RT @westr: RT @IBMWatson: @HPinsider Here\'s an animation of how #ibmwatson answers questions: http://t.co/rCgZOkmI #PM101 6\' vid #hcsm",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:31:04 +0000",
+      "from_user": "evolvability",
+      "from_user_id": 199737585,
+      "from_user_id_str": "199737585",
+      "from_user_name": "David Mittelman",
+      "geo": null,
+      "id": 256839419594686464,
+      "id_str": "256839419594686464",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/2673084988/4eb1156963514e18314939ec14cf31e5_normal.jpeg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/2673084988/4eb1156963514e18314939ec14cf31e5_normal.jpeg",
+      "source": "&lt;a href=&quot;http://twitter.com/&quot;&gt;web&lt;/a&gt;",
+      "text": "RT @westr: RT @IBMWatson: @HPinsider Here\'s an animation of how #ibmwatson answers questions: http://t.co/DTGqPxZO #PM101 6\' vid #hcsm",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:26:31 +0000",
+      "from_user": "theguiangster",
+      "from_user_id": 17873566,
+      "from_user_id_str": "17873566",
+      "from_user_name": "Marissa",
+      "geo": null,
+      "id": 256838277989023744,
+      "id_str": "256838277989023744",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1867404059/230744_10150178883937832_566892831_6851961_5635186_n_normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1867404059/230744_10150178883937832_566892831_6851961_5635186_n_normal.jpg",
+      "source": "&lt;a href=&quot;http://blackberry.com/twitter&quot;&gt;Twitter for BlackBerry®&lt;/a&gt;",
+      "text": "IBM Watson Case Competition kicks off in a few minutes! Ready to get work done.",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:24:38 +0000",
+      "from_user": "westr",
+      "from_user_id": 14267832,
+      "from_user_id_str": "14267832",
+      "from_user_name": "Robert West PhD",
+      "geo": null,
+      "id": 256837802409463808,
+      "id_str": "256837802409463808",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/1349311046/westr_178KB_normal.jpg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/1349311046/westr_178KB_normal.jpg",
+      "source": "&lt;a href=&quot;http://www.tweetdeck.com&quot;&gt;TweetDeck&lt;/a&gt;",
+      "text": "RT @IBMWatson: @HPinsider Here\'s an animation of how #ibmwatson answers questions: http://t.co/DTGqPxZO #PM101 6\' vid #hcsm",
+      "to_user": null,
+      "to_user_id": 0,
+      "to_user_id_str": "0",
+      "to_user_name": null
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 19:05:51 +0000",
+      "from_user": "amon0thoth1",
+      "from_user_id": 96648530,
+      "from_user_id_str": "96648530",
+      "from_user_name": "Ricardo Chung",
+      "geo": {
+        "coordinates": [
+          9.0,
+          -8.0
+        ],
+        "type": "Point"
+      },
+      "id": 256833076880105473,
+      "id_str": "256833076880105473",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/573464681/SUSE_LINUX_ICON2_normal.png",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/573464681/SUSE_LINUX_ICON2_normal.png",
+      "source": "&lt;a href=&quot;http://identi.ca&quot;&gt;identica&lt;/a&gt;",
+      "text": "@dMaggot System Administration of the IBM Watson Supercomputer  http://t.co/Nqc436Ma",
+      "to_user": "dMaggot",
+      "to_user_id": 18495122,
+      "to_user_id_str": "18495122",
+      "to_user_name": "David E. Narváez"
+    },
+    {
+      "created_at": "Fri, 12 Oct 2012 18:56:53 +0000",
+      "from_user": "gnomdata",
+      "from_user_id": 874511936,
+      "from_user_id_str": "874511936",
+      "from_user_name": "GNOM Data",
+      "geo": null,
+      "id": 256830817664376834,
+      "id_str": "256830817664376834",
+      "iso_language_code": "en",
+      "metadata": {
+        "result_type": "recent"
+      },
+      "profile_image_url": "http://a0.twimg.com/profile_images/2706974615/bfc8442ad0020800d10c80355ff61ac4_normal.jpeg",
+      "profile_image_url_https": "https://si0.twimg.com/profile_images/2706974615/bfc8442ad0020800d10c80355ff61ac4_normal.jpeg",
+      "source": "&lt;a href=&quot;http://twitter.com/download/iphone&quot;&gt;Twitter for iPhone&lt;/a&gt;",
+      "text": "@gnomdata: Dr Eliot Siegel demonstrates Deep Q/A process by showing the \'Watson\' (IBM) approach to answering questions based on NLP #guicbi",
+      "to_user": "gnomdata",
+      "to_user_id": 874511936,
+      "to_user_id_str": "874511936",
+      "to_user_name": "GNOM Data"
+    }
+  ],
+  "results_per_page": 15,
+  "since_id": 0,
+  "since_id_str": "0"
+}]

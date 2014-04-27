@@ -1,0 +1,40 @@
+Lesson 2: Hadoop architecture Required files:
+
+Local Filesystem
+
+	/home/biadmin/README
+
+HDFS
+	None
+
+Lesson 3: Intro to MapReduce Required files:
+
+Local FileSystem
+
+	/home/biadmin/sampleData/DBMS/RDBMS_data.csv
+	/home/biadmin/sampleData/IBMWatson/news-data.txt
+	/home/biadmin/sampleData/IBMWatson/blogs-data.txt
+	
+HDFS
+	None
+
+Lesson 4: Querying data Required files:
+
+Local Filesystem
+
+	/home/biadmin/sampleData/WatsonTweets.json
+	/home/biadmin/sampleData/NewsGroups.csv
+
+HDFS
+
+	None
+
+Lesson 5: Hadoop administration Required files:
+
+Local Filesystem
+
+	none
+
+HDFS
+
+	/user/biadmin/sampleData
